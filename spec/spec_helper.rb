@@ -20,7 +20,10 @@ RSpec.configure do |config|
   config.order = :random
   Kernel.srand config.seed
 
+  config.include ResetClickhouse
+
   config.before do
     PingStats.storage.reset!
+    reset_clickhouse!
   end
 end
