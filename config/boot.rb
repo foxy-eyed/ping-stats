@@ -4,7 +4,7 @@ require "rubygems"
 require "bundler/setup"
 require "dotenv"
 
-Dotenv.load
+Dotenv.load(".env", ".env.#{ENV['RACK_ENV']}")
 
 Bundler.require :default, ENV["RACK_ENV"]
 

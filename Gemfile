@@ -12,8 +12,10 @@ gem "redis"
 
 group :development, :test do
   gem "rubocop", require: false
+  gem "rubocop-rspec"
 end
 
 group :test do
   gem "mock_redis"
+  gem "rspec"
 end

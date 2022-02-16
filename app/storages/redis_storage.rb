@@ -20,6 +20,12 @@ module PingStats
       redis.sismember(KEY, ip)
     end
 
+    def reset!
+      raise "Non-fake storage cannot be reset!" unless self.class.fake
+
+      redis.flushdb
+    end
+
     private
 
     def redis
