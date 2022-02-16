@@ -12,6 +12,7 @@ module PingStats
         requires :ip, type: String, desc: "Host IP"
       end
       post do
+        MonitoredHosts::Create.new.call(ip: params[:ip])
         { status: :success, message: "Host added" }
       end
 
@@ -20,6 +21,7 @@ module PingStats
         requires :ip, type: String, desc: "Host IP"
       end
       delete do
+        MonitoredHosts::Destroy.new.call(ip: params[:ip])
         { status: :success, message: "Host removed" }
       end
 
