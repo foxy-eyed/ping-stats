@@ -10,6 +10,10 @@ gem "puma"
 gem "rack"
 gem "redis"
 
+group :development, :test do
+  gem "rubocop", require: false
+end
+
 group :test do
   gem "mock_redis"
 end

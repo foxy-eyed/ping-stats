@@ -1,0 +1,21 @@
+AllCops:
+  NewCops: enable
+
+Layout/SpaceInLambdaLiteral:
+  EnforcedStyle: require_space
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+Metrics/BlockLength:
+  Exclude:
+    - "app/api.rb"
+
+Style/Documentation:
+  Enabled: false
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: either
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
