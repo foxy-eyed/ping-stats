@@ -4,6 +4,7 @@ source "https://rubygems.org"
 
 ruby "3.1.0"
 
+gem "click_house"
 gem "dotenv"
 gem "grape"
 gem "puma"
