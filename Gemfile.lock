@@ -84,6 +84,7 @@ GEM
     rack-accept (0.4.5)
       rack (>= 0.4)
     rainbow (3.1.1)
+    rake (13.0.6)
     redis (4.6.0)
     regexp_parser (2.2.1)
     rexml (3.2.5)
@@ -129,6 +130,7 @@ DEPENDENCIES
   mock_redis
   puma
   rack
+  rake
   redis
   rspec
   rubocop

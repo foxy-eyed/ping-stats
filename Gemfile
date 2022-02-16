@@ -9,6 +9,7 @@ gem "dotenv"
 gem "grape"
 gem "puma"
 gem "rack"
+gem "rake"
 gem "redis"
 
 group :development, :test do
