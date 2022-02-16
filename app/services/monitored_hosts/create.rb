@@ -3,7 +3,12 @@
 module MonitoredHosts
   class Create
     def call(ip:)
-      PingStats.storage.add(ip)
+      if PingStats.storage.monitored?(ip)
+        Result::Failure.new("IP address already monitored")
+      else
+        PingStats.storage.add(ip)
+        Result::Success.new
+      end
     end
   end
 end

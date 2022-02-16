@@ -12,8 +12,12 @@ module PingStats
         requires :ip, type: String, desc: "Host IP"
       end
       post do
-        MonitoredHosts::Create.new.call(ip: params[:ip])
-        { status: :success, message: "Host added" }
+        result = MonitoredHosts::Create.new.call(ip: params[:ip])
+        if result.success?
+          { status: :success, message: "Host added" }
+        else
+          { status: :error, message: result.error }
+        end
       end
 
       desc "Remove host from monitoring"
@@ -21,8 +25,12 @@ module PingStats
         requires :ip, type: String, desc: "Host IP"
       end
       delete do
-        MonitoredHosts::Destroy.new.call(ip: params[:ip])
-        { status: :success, message: "Host removed" }
+        result = MonitoredHosts::Destroy.new.call(ip: params[:ip])
+        if result.success?
+          { status: :success, message: "Host removed" }
+        else
+          { status: :error, message: result.error }
+        end
       end
 
       desc "Show host stats"
@@ -32,7 +40,14 @@ module PingStats
         requires :interval_end, type: String, desc: "End of time interval"
       end
       get :stats do
-        { status: :success, stats: {} }
+        result = MonitoredHosts::BuildStats.new.call(ip: params[:ip],
+                                                     interval_start: params[:interval_start],
+                                                     interval_end: params[:interval_end])
+        if result.success?
+          { status: :success, stats: result.value }
+        else
+          { status: :error, message: result.error }
+        end
       end
     end
   end
