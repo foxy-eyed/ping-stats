@@ -2,9 +2,11 @@
 
 ENV["RACK_ENV"] = "test"
 
+require "sidekiq/testing"
 require File.expand_path("../config/application", __dir__)
 Dir[File.expand_path("support/**/*.rb", __dir__)].each { |f| require f }
 
+Sidekiq::Testing.fake!
 PingStats::IpStorage.fake = true
 
 RSpec.configure do |config|
@@ -23,5 +25,6 @@ RSpec.configure do |config|
   config.before do
     PingStats.ip_storage.reset!
     PingStats.events_storage.reset!
+    Sidekiq::Worker.clear_all
   end
 end
