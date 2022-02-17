@@ -22,6 +22,8 @@ RSpec.configure do |config|
   config.order = :random
   Kernel.srand config.seed
 
+  config.include ApiHelpers, type: :request
+
   config.before do
     PingStats.ip_storage.reset!
     PingStats.events_storage.reset!

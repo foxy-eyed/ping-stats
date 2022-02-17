@@ -6,6 +6,10 @@ module PingStats
     prefix :api
     format :json
 
+    rescue_from Grape::Exceptions::ValidationErrors do |e|
+      error!({ status: :error, message: e.message }, 422)
+    end
+
     resource :monitored_hosts do
       desc "Add host to monitoring"
       params do
@@ -16,7 +20,7 @@ module PingStats
         if result.success?
           { status: :success, message: "Host added" }
         else
-          { status: :error, message: result.error }
+          error!({ status: :error, message: result.error }, 422)
         end
       end
 
@@ -29,7 +33,7 @@ module PingStats
         if result.success?
           { status: :success, message: "Host removed" }
         else
-          { status: :error, message: result.error }
+          error!({ status: :error, message: result.error }, 422)
         end
       end
 
@@ -46,7 +50,7 @@ module PingStats
         if result.success?
           { status: :success, stats: result.value }
         else
-          { status: :error, message: result.error }
+          error!({ status: :error, message: result.error }, 422)
         end
       end
     end
