@@ -10,7 +10,7 @@ Layout/FirstHashElementIndentation:
 
 Metrics/BlockLength:
   Exclude:
-    - "app/api.rb"
+    - "api/**"
 
 Metrics/MethodLength:
   CountAsOne: ["array", "heredoc"]
