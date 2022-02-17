@@ -11,7 +11,8 @@ module PingStats
     end
 
     mount ::PingStats::MonitoredHostsApi
-    add_swagger_documentation format: :json,
+    add_swagger_documentation mount_path: "/doc",
+                              format: :json,
                               info: { title: "PingStats API" }
   end
 end
