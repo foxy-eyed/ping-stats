@@ -9,7 +9,7 @@ module PingStats
     resource :monitored_hosts do
       desc "Add host to monitoring"
       params do
-        requires :ip, type: String, desc: "Host IP"
+        requires :ip, type: String, ipv4: true, desc: "Host IP"
       end
       post do
         result = MonitoredHosts::Create.new.call(ip: params[:ip])
@@ -22,7 +22,7 @@ module PingStats
 
       desc "Remove host from monitoring"
       params do
-        requires :ip, type: String, desc: "Host IP"
+        requires :ip, type: String, ipv4: true, desc: "Host IP"
       end
       delete do
         result = MonitoredHosts::Destroy.new.call(ip: params[:ip])
@@ -35,9 +35,9 @@ module PingStats
 
       desc "Show host stats"
       params do
-        requires :ip, type: String, desc: "Host IP"
-        requires :interval_start, type: String, desc: "Beginning of time interval"
-        requires :interval_end, type: String, desc: "End of time interval"
+        requires :ip, type: String, ipv4: true, desc: "Host IP"
+        requires :interval_start, type: DateTime, desc: "Beginning of time interval"
+        requires :interval_end, type: DateTime, desc: "End of time interval"
       end
       get :stats do
         result = MonitoredHosts::BuildStats.new.call(ip: params[:ip],

@@ -13,4 +13,5 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 Dir[File.expand_path("../config/initializers/*.rb", __dir__)].each { |f| require f }
 Dir[File.expand_path("../lib/**/*.rb", __dir__)].each { |f| require f }
+Dir[File.expand_path("../api/**/*.rb", __dir__)].each { |f| require f }
 Dir[File.expand_path("../app/**/*.rb", __dir__)].each { |f| require f }
