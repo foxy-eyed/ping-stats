@@ -12,6 +12,8 @@ gem "puma"
 gem "rack"
 gem "rake"
 gem "redis"
+gem "sidekiq"
+gem "sidekiq-scheduler"
 
 group :development, :test do
   gem "rubocop", require: false

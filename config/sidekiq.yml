@@ -1,0 +1,7 @@
+:concurrency: <%= ENV.fetch("SIDEKIQ_CONCURRENCY", 10) %>
+:schedule:
+  # every 10 minutes
+  enqueue_appsflyer_pull_report_jobs:
+    cron: "*/10 * * * * UTC"
+    class: MonitoredHosts::PingEnqueueJob
+    description: "Enqueues jobs to ping all monitored hosts"
