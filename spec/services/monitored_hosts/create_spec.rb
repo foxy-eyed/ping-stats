@@ -18,7 +18,7 @@ describe MonitoredHosts::Create do
 
     it "makes ip address monitored" do
       create_host
-      expect(PingStats.storage).to be_monitored(ip)
+      expect(PingStats.ip_storage).to be_monitored(ip)
     end
 
     it "invokes event creation with correct args" do
@@ -28,7 +28,7 @@ describe MonitoredHosts::Create do
   end
 
   context "with existed ip" do
-    before { PingStats.storage.add(ip) }
+    before { PingStats.ip_storage.add(ip) }
 
     it "returns failure" do
       expect(create_host).to be_failure

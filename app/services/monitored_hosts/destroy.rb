@@ -3,8 +3,8 @@
 module MonitoredHosts
   class Destroy
     def call(ip:)
-      if PingStats.storage.monitored?(ip)
-        PingStats.storage.remove(ip)
+      if PingStats.ip_storage.monitored?(ip)
+        PingStats.ip_storage.remove(ip)
         Events::Create.new.call(ip: ip, event_name: :host_removed)
         Result::Success.new
       else

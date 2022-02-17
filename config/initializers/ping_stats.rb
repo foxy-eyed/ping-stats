@@ -2,8 +2,12 @@
 
 module PingStats
   class << self
-    def storage
-      @storage ||= PingStats::RedisStorage.new
+    def ip_storage
+      @ip_storage ||= PingStats::IpStorage.new
+    end
+
+    def events_storage
+      @events_storage ||= PingStats::EventsStorage.new
     end
   end
 end

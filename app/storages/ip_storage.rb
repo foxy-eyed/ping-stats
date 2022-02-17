@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module PingStats
-  class RedisStorage
+  class IpStorage
     DEFAULT_REDIS_URL = "redis://127.0.0.1:6379"
     DB_KEY = 1
     KEY = "ping_stats::monitored_hosts"

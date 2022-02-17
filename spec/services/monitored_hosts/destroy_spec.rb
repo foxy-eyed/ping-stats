@@ -12,7 +12,7 @@ describe MonitoredHosts::Destroy do
   end
 
   context "with existed ip" do
-    before { PingStats.storage.add(ip) }
+    before { PingStats.ip_storage.add(ip) }
 
     it "returns success result" do
       expect(destroy_host).to be_success
@@ -20,7 +20,7 @@ describe MonitoredHosts::Destroy do
 
     it "removes ip address from monitoring" do
       destroy_host
-      expect(PingStats.storage).not_to be_monitored(ip)
+      expect(PingStats.ip_storage).not_to be_monitored(ip)
     end
 
     it "invokes event creation with correct args" do

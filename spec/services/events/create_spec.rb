@@ -7,7 +7,7 @@ describe Events::Create do
     service.call(ip: "8.8.8.8", event_name: :host_removed)
 
     inserted_rows_count = ClickHouse.connection.select_value(
-      "SELECT COUNT(*) FROM #{ENV.fetch('CLICKHOUSE_TABLE_NAME', 'events')} WHERE ip = toIPv4('8.8.8.8')"
+      "SELECT COUNT(*) FROM #{PingStats.events_storage.table} WHERE ip = toIPv4('8.8.8.8')"
     )
 
     expect(inserted_rows_count).to eq(2)

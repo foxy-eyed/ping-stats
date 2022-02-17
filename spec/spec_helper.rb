@@ -5,7 +5,7 @@ ENV["RACK_ENV"] = "test"
 require File.expand_path("../config/application", __dir__)
 Dir[File.expand_path("support/**/*.rb", __dir__)].each { |f| require f }
 
-PingStats::RedisStorage.fake = true
+PingStats::IpStorage.fake = true
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -20,10 +20,8 @@ RSpec.configure do |config|
   config.order = :random
   Kernel.srand config.seed
 
-  config.include ResetClickhouse
-
   config.before do
-    PingStats.storage.reset!
-    reset_clickhouse!
+    PingStats.ip_storage.reset!
+    PingStats.events_storage.reset!
   end
 end
