@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require "simplecov_profile"
+SimpleCov.start "custom_profile"
+
 ENV["RACK_ENV"] = "test"
 
 require "sidekiq/testing"
