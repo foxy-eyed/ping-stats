@@ -1,0 +1,9 @@
+.git
+.github
+.gitignore
+.idea
+coverage
+docker
+docs
+.env
+.env.*

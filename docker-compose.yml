@@ -1,0 +1,51 @@
+services:
+  clickhouse:
+    image: yandex/clickhouse-server
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 262144
+        hard: 262144
+    volumes:
+      - $HOME/clickhouse_data:/var/lib/clickhouse
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+  sidekiq:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    env_file: ./docker/.env.development
+    depends_on:
+      - clickhouse
+      - redis
+    volumes:
+      - .:/usr/src/app
+    command: bundle exec sidekiq -r ./config/boot.rb -C ./config/sidekiq.yml
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    env_file: ./docker/.env.development
+    ports:
+      - "9292:9292"
+    depends_on:
+      - clickhouse
+      - redis
+    volumes:
+      - .:/usr/src/app
+    command: bash -c "bundle exec rake click_house:setup && bundle exec puma"
+  test:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    env_file: ./docker/.env.test
+    depends_on:
+      - clickhouse
+    volumes:
+      - .:/usr/src/app
+    command: bash -c "bundle exec rake click_house:setup && bundle exec rspec"
