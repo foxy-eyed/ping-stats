@@ -14,7 +14,6 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.1
           bundler-cache: true
 
       - name: Run Robocop
@@ -34,7 +33,6 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.1
           bundler-cache: true
 
       - name: Install ClickHouse
