@@ -4,10 +4,10 @@ module MonitoredHosts
   class PingFailure < StandardError; end
 
   class Ping
-    WAIT_TIMEOUT = 5
+    DEFAULT_PING_TIMEOUT = 5
 
     def call(ip:)
-      client = Net::Ping::ICMP.new(ip, nil, WAIT_TIMEOUT)
+      client = Net::Ping::ICMP.new(ip, nil, ENV.fetch("PING_TIMEOUT", DEFAULT_PING_TIMEOUT))
       raise PingFailure, client.exception.message unless client.ping?
 
       Events::Create.new.call(ip: ip, event_name: :ping_succeed, latency: client.duration)
