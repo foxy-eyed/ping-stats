@@ -15,10 +15,9 @@ Now you have app running at http://localhost:9292 and ready to process your requ
     Example:
     ```
     curl -X POST "http://localhost:9292/api/v1/monitored_hosts" \
-    -H "Content-Type: application/x-www-form-urlencoded" \
-    -d ip=8.8.8.8
+    -H "Content-Type: application/json" \
+    -d '{"ip":"8.8.8.8"}'
     ```
-
 
  * To remove IP from monitoring: `DELETE /api/v1/monitored_hosts`
 
