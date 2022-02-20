@@ -14,7 +14,7 @@ namespace :click_house do
         ip IPv4,
         event_name LowCardinality(String),
         event_time DateTime,
-        latency Decimal(8, 6),
+        latency Nullable(Decimal(8, 6)),
         error_message LowCardinality(String)
       ) ENGINE = MergeTree()
       ORDER BY (ip, event_time)

@@ -18,11 +18,11 @@ module PingStats
     def aggregate_ping_stats(ip, interval_start, interval_end)
       sql = <<-SQL
         SELECT
-          minOrNullIf(latency, event_name = 'ping_succeed') as min_rtt,
-          maxOrNullIf(latency, event_name = 'ping_succeed') as max_rtt,
-          avgOrNullIf(latency, event_name = 'ping_succeed') as avg_rtt,
-          quantileExactOrNullIf(latency, event_name = 'ping_succeed') as median_rtt,
-          stddevSampOrNullIf(latency, event_name = 'ping_succeed') as std_dev,
+          min(latency) as min_rtt,
+          max(latency) as max_rtt,
+          avg(latency) as avg_rtt,
+          quantileExact(latency) as median_rtt,
+          stddevSamp(latency) as std_dev,
           countIf(event_name = 'ping_succeed') as ping_succeed,
           countIf(event_name = 'ping_failed') as ping_failed
         FROM #{table}
